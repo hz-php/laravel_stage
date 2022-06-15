@@ -12,3 +12,4 @@ localstorage на экран
  Установил laravel
  подключил модуль Date
 ![Image](instal_date.png)
+![Image](data_mod.png)
