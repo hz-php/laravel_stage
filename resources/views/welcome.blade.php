@@ -442,12 +442,18 @@ Date::setLocale('nl');
             font-size: 22px;
             text-align: center;
         }
+
         .butt {
             margin: 20px auto;
             background-color: #e7e7e7;
             color: black;
             border-radius: 20px;
             padding: 10px;
+        }
+        .curs_usd h3, .curs_usd h2 {
+            color: white;
+            margin: auto;
+            text-align: center;
         }
     </style>
 </head>
@@ -504,31 +510,48 @@ Date::setLocale('nl');
         $news_to_storage = json_encode($news_fix[0]['title'], true);
         $i = 0;
         ?>
-                <div class="news_api">
-                    @foreach ($news_fix as $value)
-                        <?php $i++ ?>
-                        <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg block_news">
-                            <h3 class="title_news"> {{ $value['title'] }}</h3>
-                            <p class="description">
-                                {{ $value['description'] }}
-                            </p>
-                            <a href="{{ $value['link'] }}" target="_blank" class="link"><b>Подробнее</b></a>
-                        </div>
-                        @break($i == 3)
-                    @endforeach
+        <div class="news_api">
+            @foreach ($news_fix as $value)
+                <?php $i++ ?>
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg block_news">
+                    <h3 class="title_news"> {{ $value['title'] }}</h3>
+                    <p class="description">
+                        {{ $value['description'] }}
+                    </p>
+                    <a href="{{ $value['link'] }}" target="_blank" class="link"><b>Подробнее</b></a>
                 </div>
-        <button class="butt">Сохранить массив новостей в local storage</button>
+                @break($i == 3)
+            @endforeach
+        </div>
+        <button class="butt save_loc">Сохранить title новости в local storage</button>
         <a href="/local-storage" style="font-size: 20px; color: red; float: right; margin-top: 15px">Проверить</a>
+        <button class="butt async_query" style="margin: auto">Сделать запрс</button>
+        <div class="curs_usd">
+
+        </div>
     </div>
 </div>
 </div>
 <script>
-    var button = document.querySelector('.butt');
-    button.onclick =function (){
+    var button = document.querySelector('.save_loc');
+    button.onclick = function () {
         let array = <?= $news_to_storage ?>;
         localStorage.setItem("array", <?= $news_to_storage ?>);
         console.log(array);
     }
+    let btn_query = document.querySelector(".async_query");
+    btn_query.addEventListener("click", async function (e) {
+        e.preventDefault();
+        let url = 'https://www.cbr-xml-daily.ru/daily_json.js';
+        let query = await fetch(url)
+        let response = await query.json();
+        document.querySelector('.curs_usd').innerHTML = '<h2> Текущий курс ' + response.Valute.USD.Name + '</h2><br>' +
+            '<h3>1 доллар</h3><br>' +
+            '<h2>'+ response.Valute.USD.Value + ' рос. рублей</h2>'
+        console.log(response.Valute.USD)
+
+
+    })
 </script>
 </body>
 </html>
