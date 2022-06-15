@@ -7,5 +7,8 @@
 localstorage на экран
 ![Image](local_st_page.png)
 Так же на ней вывел кнопку очистки localstroge и ссалку перехода на главную
-9-е занятие подключил модуль Date
+
+9-е занятие:
+ Установил laravel
+ подключил модуль Date
 ![Image](instal_date.png)
