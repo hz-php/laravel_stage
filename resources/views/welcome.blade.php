@@ -537,7 +537,6 @@ Date::setLocale('nl');
     button.onclick = function () {
         let array = <?= $news_to_storage ?>;
         localStorage.setItem("array", <?= $news_to_storage ?>);
-        console.log(array);
     }
     let btn_query = document.querySelector(".async_query");
     btn_query.addEventListener("click", async function (e) {
@@ -548,10 +547,7 @@ Date::setLocale('nl');
         document.querySelector('.curs_usd').innerHTML = '<h2> Текущий курс ' + response.Valute.USD.Name + '</h2><br>' +
             '<h3>1 доллар</h3><br>' +
             '<h2>'+ response.Valute.USD.Value + ' рос. рублей</h2>'
-        console.log(response.Valute.USD)
-
-
-    })
+          })
 </script>
 </body>
 </html>
