@@ -455,11 +455,47 @@ Date::setLocale('nl');
             margin: auto;
             text-align: center;
         }
+        .test {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            margin: 30px;
+        }
+        .test input {
+            margin-bottom: 20px;
+            height: 40px;
+        }
+        .button {
+            width: 10%;
+
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 0 20px;
+            margin: 0 auto;
+            outline: none;
+            border: none;
+            border-radius: 4px;
+            height: 32px;
+            line-height: 32px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #fff;
+            background-color: #3775dd;
+            box-shadow: 0 2px #21487f;
+            cursor: pointer;
+            user-select: none;
+            appearance: none;
+            touch-action: manipulation;
+            vertical-align: top;
+        }
+        .button:hover {
+            background-color: #002fed;
+        }
     </style>
 </head>
 <body class="antialiased">
-<div
-    class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
     @if (Route::has('login'))
         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
             @auth
@@ -484,6 +520,12 @@ Date::setLocale('nl');
                 </g>
             </svg>
         </div>
+        <form action="{{ url('/form') }}" class="text-center test" method="POST">
+            @csrf
+            <input type="text" name="name" placeholder="Введите имя">
+            <input type="tel" name="tel" placeholder="Введите телефон">
+            <input type="submit" class="button" value="отправить">
+        </form>
         <div class="date    ">
             <h2 class="text-center">Сегодняшняя дата</h2>
             <?php
