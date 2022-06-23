@@ -19,3 +19,4 @@ Route::get('/', function () {
 Route::get('/local-storage', function () {
     return view('local_storage');
 });
+Route::post('/form', )->middleware('test');
