@@ -13,6 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'App\Http\Controllers\PostController@index')->name('index');
+
+Route::group(['middleware' => 'fin'], function () {
+    Route::post('/names', 'App\Http\Controllers\FormContorller@index')->middleware('emptys');
+
+    Route::get('/post', function () {
+        $forms_inp = 'Hello world';
+        return view('form', compact('forms_inp'));
+    })->name('post');
+
+    Route::get('/post_two', function () {
+        return redirect(\route('post'));
+    })->name('post_two');
+
+    Route::get('three', 'App\Http\Controllers\RoutesController@index')->name('three');
 });
+
+Route::get('create', 'App\Http\Controllers\PostController@create')->name('create');
+
+Route::post('store', 'App\Http\Controllers\PostController@store')->name('store');
+
