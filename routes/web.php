@@ -16,7 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/local-storage', function () {
-    return view('local_storage');
-});
-Route::post('/form', )->middleware('test');
