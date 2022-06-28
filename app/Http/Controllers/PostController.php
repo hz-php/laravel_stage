@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Models\Posts;
 use Illuminate\Http\Request;
 
@@ -35,17 +36,23 @@ class PostController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
+
         $title = $request->input('title');
         $text = $request->input('text');
+        $path = $request->file('image')->store('uploads', 'public');
+
         $item = new Posts();
         $item->title = $title;
         $item->text = $text;
+        $item->img = $path;
         if ($item->save()) {
            $result = redirect(route('index'));
         } else {
-            $result = back();
+            $result = back()
+                ->withErrors(['msg' => 'Что то пошло не так'])
+                ->withInput();
         }
         return $result;
     }

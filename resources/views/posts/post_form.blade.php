@@ -16,14 +16,24 @@
         Добавить статью
     </h3>
 
-    <form action="{{ route('store') }}" method="POST">
+    <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="title">Введите название</label>
         <input type="text" name="title" id="title" class="title form-control ">
+        <br>
+        <div>
+            <label for="file">Ваш файл</label>
+            <input type="file" name="image" id="file" class="form-control" >
+        </div>
+        <br>
         <label for="text">Введите текст</label>
         <textarea name="text" class="form-control" id="text" cols="30" rows="10"></textarea>
         <br>
         <button type="submit" class="btn btn-primary">Сохранить</button>
+        @if($errors->any())
+
+            {{ $errors->first() }}
+        @endif
     </form>
 </div>
 
